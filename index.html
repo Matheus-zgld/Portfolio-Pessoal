@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio Pessoal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8fafc;
+        }
+        
+        .dark body {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            border-radius: 5px;
+            background-color: #e2e8f0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            background-color: #3b82f6;
+            transition: width 1s ease-in-out;
+        }
+        
+        .circle-progress {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .circle-progress svg {
+            transform: rotate(-90deg);
+        }
+        
+        .circle-progress circle {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+        }
+        
+        .circle-progress .bg {
+            stroke: #e2e8f0;
+        }
+        
+        .circle-progress .progress {
+            stroke: #3b82f6;
+            stroke-dasharray: 251;
+            stroke-dashoffset: calc(251 - (251 * var(--percentage)) / 100);
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+        
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .project-card:hover {
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .toggle-checkbox:checked {
+            right: 0;
+            background-color: #3b82f6;
+        }
+        
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #3b82f6;
+        }
+
+        .updateColor {
+            color: #646464;
+        }
+
+        strong{
+            color:#3b82f6;
+        }
+    </style>
+</head>
+<body class="text-gray-800 dark:text-gray-200">
+    <!-- Header/Navigation -->
+    <header class="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#home" class="text-2xl font-bold text-blue-600 dark:text-blue-400">Portfólio Pessoal</a>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Home</a>
+                    <a href="#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Sobre</a>
+                    <a href="#skills" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Habilidades</a>
+                    <a href="#certificates" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Certificados</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative inline-block w-12 mr-2 align-middle select-none">
+                        <input type="checkbox" id="toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                        <label for="toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                    </div>
+                    
+                    <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 space-y-2">
+                <a href="#home" class="block py-2 hover:text-blue-600 dark:hover:text-blue-400 transition">Home</a>
+                <a href="#about" class="block py-2 hover:text-blue-600 dark:hover:text-blue-400 transition">Sobre</a>
+                <a href="#skills" class="block py-2 hover:text-blue-600 dark:hover:text-blue-400 transition">Habilidades</a>
+                <a href="#certificates" class="block py-2 hover:text-blue-600 dark:hover:text-blue-400 transition">Certificados</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-20">
+        <div class="container mx-auto px-6 py-20 md:py-32 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 updateColor">Matheus Camargo</h1>
+                <h2 class="text-2xl md:text-3xl text-blue-600 dark:text-blue-400 mb-6">Desenvolvedor Full Stack | UI/UX Designer</h2>
+                <p class="text-lg md:text-xl mb-8 max-w-lg updateColor">"Em minha jornada de me tornar um desenvolvedor Front-End
+                    profissional, criando experiências digitais que encantam e resolvem problemas reais."</p>
+                
+                <div class="flex space-x-4 mb-8">
+                    <a href="https://www.linkedin.com/in/matheus-camargo-37365b341" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 transition">
+                        <i class="fab fa-linkedin-in text-lg"></i>
+                    </a>
+                    <a href="https://github.com/Matheus-zgld" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-gray-900 transition">
+                        <i class="fab fa-github text-lg"></i>
+                    </a>
+                    <a href="https://wa.me/5511952072592" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-green-500 text-white hover:bg-green-600 transition">
+                        <i class="fab fa-whatsapp text-lg"></i>
+                    </a>
+                    <a href="https://www.instagram.com/matheus.zgld" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-pink-600 text-white hover:bg-pink-700 transition">
+                        <i class="fab fa-instagram text-lg"></i>
+                    </a>
+                </div>
+                
+                <a href="#about" class="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition transform hover:-translate-y-1">
+                    Conheça mais sobre mim <i class="fas fa-arrow-down ml-2"></i>
+                </a>
+            </div>
+            
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                    <div class="absolute inset-0 bg-blue-500 rounded-full opacity-20 blur-xl animate-pulse"></div>
+                    <img src="./eu.png" 
+                         alt="Matheus Camargo" 
+                         class="relative w-full h-full object-cover rounded-full border-4 border-white dark:border-gray-800 shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800 section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Sobre Mim</h2>
+            
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12">
+                    <h3 class="text-2xl font-semibold mb-4">Quem sou eu?</h3>
+                    <p class="mb-6 text-lg">Sou um estudante que viso em me tornar desenvolvedor Full Stack, apaixonado por criar soluções digitais inovadoras. Com 5 anos de prática e muito estudo, já trabalhei em diversos projetos, desde pequenos sites até aplicações com consumo de diferentes APIs. <strong>Já completei o curso técnico em Desenvolvimentos de Sistemas na Etec e atualmente estou cursando Engenharia de Software na FIAP</strong>.</p>
+                    <p class="mb-6 text-lg">Minha abordagem combina habilidades técnicas sólidas com um olhar atento à experiência do usuário, garantindo que cada projeto não apenas funcione bem, mas também seja intuitivo e agradável de usar.</p>
+                    
+                    <div class="mb-8">
+                        <h4 class="text-xl font-semibold mb-4">Soft Skills</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 rounded-full">Trabalho em equipe</span>
+                            <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 rounded-full">Resolução de problemas</span>
+                            <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 rounded-full">Comunicação clara</span>
+                            <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 rounded-full">Pensamento crítico</span>
+                            <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 rounded-full">Adaptabilidade</span>
+                        </div>
+                    </div>
+                    
+                    <a href="./curriculoTI.pdf" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" download="curriculo_MatheusCamargo.pdf">
+                        <i class="fas fa-download mr-2"></i> Baixar Currículo (PDF)
+                    </a>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-6">Tecnologias que domino</h3>
+                    <div class="grid grid-cols-3 md:grid-cols-4 gap-4">
+                        <div class="flex flex-col items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow">
+                            <i class="fab fa-html5 text-4xl text-orange-500 mb-2"></i>
+                            <span>HTML5</span>
+                        </div>
+                        <div class="flex flex-col items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow">
+                            <i class="fab fa-css3-alt text-4xl text-blue-500 mb-2"></i>
+                            <span>CSS3</span>
+                        </div>
+                        <div class="flex flex-col items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow">
+                            <i class="fab fa-js text-4xl text-yellow-500 mb-2"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="flex flex-col items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow">
+                            <i class="fab fa-react text-4xl text-blue-400 mb-2"></i>
+                            <span>React</span>
+                        </div>
+                        <div class="flex flex-col items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow">
+                            <i class="fab fa-node-js text-4xl text-green-500 mb-2"></i>
+                            <span>Node.js</span>
+                        </div>
+                        <div class="flex flex-col items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow">
+                            <i class="fab fa-python text-4xl text-blue-600 mb-2"></i>
+                            <span>Python</span>
+                        </div>
+                        <div class="flex flex-col items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow">
+                            <i class="fab fa-git-alt text-4xl text-orange-600 mb-2"></i>
+                            <span>Git</span>
+                        </div>
+                        <div class="flex flex-col items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow">
+                            <i class="fab fa-figma text-4xl text-purple-500 mb-2"></i>
+                            <span>Figma</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 updateColor">Minhas Habilidades</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Front-End Skills -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-laptop-code text-2xl text-blue-500 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Front-End</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>HTML5</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>CSS3</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>JavaScript</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>React</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Back-End Skills -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-server text-2xl text-green-500 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Back-End</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Node.js</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Express</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>PHP</span>
+                                <span>70%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>API REST</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Database Skills -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-database text-2xl text-purple-500 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Banco de Dados</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="circle-progress mb-2">
+                                <svg viewBox="0 0 100 100">
+                                    <circle class="bg" cx="50" cy="50" r="40"></circle>
+                                    <circle class="progress" cx="50" cy="50" r="40" style="--percentage: 15"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center text-lg font-semibold">15%</div>
+                            </div>
+                            <span>MongoDB</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="circle-progress mb-2">
+                                <svg viewBox="0 0 100 100">
+                                    <circle class="bg" cx="50" cy="50" r="40"></circle>
+                                    <circle class="progress" cx="50" cy="50" r="40" style="--percentage: 90"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center text-lg font-semibold">95%</div>
+                            </div>
+                            <span>MySQL</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="circle-progress mb-2">
+                                <svg viewBox="0 0 100 100">
+                                    <circle class="bg" cx="50" cy="50" r="40"></circle>
+                                    <circle class="progress" cx="50" cy="50" r="40" style="--percentage: 10"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center text-lg font-semibold">10%</div>
+                            </div>
+                            <span>PostgreSQL</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="circle-progress mb-2">
+                                <svg viewBox="0 0 100 100">
+                                    <circle class="bg" cx="50" cy="50" r="40"></circle>
+                                    <circle class="progress" cx="50" cy="50" r="40" style="--percentage: 5"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center text-lg font-semibold">5%</div>
+                            </div>
+                            <span>Firebase</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tools & Others -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-tools text-2xl text-orange-500 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Ferramentas</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <i class="fab fa-git-alt text-xl text-orange-600 mr-2"></i>
+                            <span>Git</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fab fa-figma text-xl text-purple-500 mr-2"></i>
+                            <span>Figma</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fab fa-docker text-xl text-blue-400 mr-2"></i>
+                            <span>Docker</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-terminal text-xl text-gray-600 dark:text-gray-300 mr-2"></i>
+                            <span>CLI</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fab fa-npm text-xl text-red-500 mr-2"></i>
+                            <span>NPM/Yarn</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-code text-xl text-gray-600 dark:text-gray-300 mr-2"></i>
+                            <span>VS Code</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Other Skills -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-star text-2xl text-yellow-500 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Outras Habilidades</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>UI/UX Design</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Testes Automatizados</span>
+                                <span>70%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="py-20 bg-gray-50 dark:bg-gray-800 section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Certificados & Cursos</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Certificate 1 -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-blue-500 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">FIGMA: CONHECENDO A FERRAMENTA</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Alura - 2025</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Curso completo de como usar as ferramentas do Figma.</p>
+                        <a href="./certificadoFigma.pdf" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">Ver Certificado</a>
+                    </div>
+                </div>
+                
+                <!-- Certificate 2 -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-green-500 flex items-center justify-center">
+                        <i class="fas fa-certificate text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Design Thinking - Process</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">FIAP - 2025</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Aprofundamento em Design Thinking e Processos.</p>
+                        <a href="./certificadoDesignThinking.pdf" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">Ver Certificado</a>
+                    </div>
+                </div>
+                
+                <!-- Certificate 3 -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-purple-500 flex items-center justify-center">
+                        <i class="fas fa-laptop-code text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">HTML e CSS: Classes, posicionamento e Flexbox</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Alura - 2025</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Aprenda a estilizar e posicionar elementos com CSS, usando classes, Flexbox, efeitos visuais e fontes.</p>
+                        <a href="./certificadoFlexbox.pdf" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">Ver Certificado</a>
+                    </div>
+                </div>
+                
+                <!-- Certificate 4 -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-yellow-500 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Pacote Office 365 - Microsoft Office Essencial</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Udemy - 2025</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Uso o Office 365 para ter Word, Excel, PowerPoint e tudo o que preciso no dia a dia, com praticidade e na nuvem.</p>
+                        <a href="./certificadoOffice.pdf" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">Ver Certificado</a>
+                    </div>
+                </div>
+                
+                <!-- Certificate 5 -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-red-500 flex items-center justify-center">
+                        <i class="fas fa-database text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Assistente Administrativo e Rotinas Administrativas</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Microlins - 2025</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Formação voltada à prática de rotinas administrativas, com foco em organização de documentos, atendimento, controle de processos internos e suporte às atividades operacionais do setor administrativo.</p>
+                        <a href="./certificadoMicrolins.pdf" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">Ver Certificado</a>
+                    </div>
+                </div>
+                
+                <!-- Certificate 6 -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 bg-indigo-500 flex items-center justify-center">
+                        <i class="fas fa-cloud text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Gestão de Infraestrutura de TI</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">FIAP - 2025</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Capacitação em gestão de infraestrutura de Tecnologia da Informação, abrangendo administração de redes, servidores, segurança da informação, suporte técnico e manutenção de ambientes computacionais.</p>
+                        <a href="./certificadoGestãoInfraestrutura.pdf" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">Ver Certificado</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#home" class="text-2xl font-bold text-blue-400">Portfólio - Matheus Camargo</a>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://www.linkedin.com/in/matheus-camargo-37365b341" target="_blank" class="hover:text-blue-400 transition">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="https://github.com/Matheus-zgld" target="_blank" class="hover:text-blue-400 transition">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/matheus.zgld" target="_blank" class="hover:text-blue-400 transition">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://x.com/zgld_" target="_blank" class="hover:text-blue-400 transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2025 Matheus Camargo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const toggle = document.getElementById('toggle');
+        const html = document.documentElement;
+        
+        // Check for saved user preference, if any
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            html.classList.add('dark');
+            toggle.checked = true;
+        }
+        
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Scroll reveal animation
+        const sections = document.querySelectorAll('.section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Animate progress bars on scroll
+        const progressBars = document.querySelectorAll('.progress-fill');
+        
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const width = entry.target.style.width;
+                    entry.target.style.width = '0';
+                    setTimeout(() => {
+                        entry.target.style.width = width;
+                    }, 100);
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+        
+        progressBars.forEach(bar => {
+            progressObserver.observe(bar);
+        });
+    </script>
+</body>
+</html>
